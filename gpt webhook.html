@@ -1,0 +1,35 @@
+<form>
+  <label for="message">Enter your message:</label><br>
+  <textarea id="message" name="message"></textarea><br>
+  <button type="button" onclick="sendMessage()">Send</button>
+</form>
+<script>
+function sendMessage() {
+  const messageInput = document.getElementById("message");
+  const message = messageInput.value;
+  
+  const payload = {
+    content: message,
+    username: "Psic",
+    avatar_url: "https://cdn.discordapp.com/attachments/1079498691225853992/1080198826960371823/Psic.png"
+  };
+  
+  fetch("https://discord.com/api/webhooks/1081642664996384879/UnMHZdHtRAiWtloOobDO5QtTr_DpeOOaEmaWu39kjSJUPIFkgOooLXVSB8UBXouXmR4t", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Failed to send message");
+    }
+    alert("Message sent!");
+  })
+  .catch(error => {
+    console.error(error);
+    alert("Failed to send message");
+  });
+}
+</script>
